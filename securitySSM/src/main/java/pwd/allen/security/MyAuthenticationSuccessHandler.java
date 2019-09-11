@@ -1,6 +1,6 @@
 package pwd.allen.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -19,11 +19,6 @@ import java.util.HashMap;
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     /**
-     * json框架工具类，用于转换对象为json字符串
-     */
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    /**
      * Authentication：认证成功后的信息
      *
      * @param request
@@ -39,6 +34,6 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         result.put("type", "success");
 
         response.setContentType("text/json;charset=utf-8");
-        response.getWriter().write(objectMapper.writeValueAsString(result));
+        response.getWriter().write(JSON.toJSONString(result));
     }
 }
