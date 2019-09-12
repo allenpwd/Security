@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pwd.allen.dao.AuthMapper">
+  <resultMap id="BaseResultMap" type="pwd.allen.entity.Auth">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="auth_name" jdbcType="VARCHAR" property="authName" />
+    <result column="auth_desc" jdbcType="VARCHAR" property="authDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auth_name, auth_desc
+  </sql>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_auth
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from sys_auth
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="pwd.allen.entity.Auth">
+    insert into sys_auth (id, auth_name, auth_desc
+      )
+    values (#{id,jdbcType=INTEGER}, #{authName,jdbcType=VARCHAR}, #{authDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="update" parameterType="pwd.allen.entity.Auth">
+    update sys_auth
+    set auth_name = #{authName,jdbcType=VARCHAR},
+      auth_desc = #{authDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

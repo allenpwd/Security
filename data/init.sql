@@ -41,7 +41,7 @@ create table sys_role
 /*==============================================================*/
 create table sys_role_auth
 (
-   auth_d               int(10) comment '权限ID',
+   auth_id               int(10) comment '权限ID',
    role_id              int(10) comment '角色ID'
 );
 
@@ -51,7 +51,7 @@ create table sys_role_auth
 create table sys_user
 (
    id                   int(10) not null comment '用户ID',
-   username             varchar(50) comment '用户名',
+   user_name             varchar(50) comment '用户名',
    password             varchar(50) comment '密码',
    create_date          datetime comment '创建日期',
    last_login_time      datetime comment '最后登录时间',
