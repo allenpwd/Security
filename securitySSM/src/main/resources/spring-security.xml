@@ -22,10 +22,10 @@
          -->
         <security:intercept-url pattern="/product/index" access="permitAll()"/>
         <security:intercept-url pattern="/userLogin" access="permitAll()"/>
-        <security:intercept-url pattern="/product/list" access="hasRole('PRODUCT_LIST')"/>
-        <security:intercept-url pattern="/product/add" access="hasRole('PRODUCT_ADD')"/>
-        <security:intercept-url pattern="/product/delete" access="hasRole('PRODUCT_DELETE')"/>
-        <security:intercept-url pattern="/product/update" access="hasRole('PRODUCT_UPDATE')"/>
+        <security:intercept-url pattern="/product/list" access="hasAuthority('PRODUCT_LIST')"/>
+        <security:intercept-url pattern="/product/add" access="hasAuthority('PRODUCT_ADD')"/>
+        <security:intercept-url pattern="/product/delete" access="hasAuthority('PRODUCT_DELETE')"/>
+        <security:intercept-url pattern="/product/update" access="hasAuthority('PRODUCT_UPDATE')"/>
         <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
 
         <!--自定义权限不足的处理-->
@@ -35,8 +35,9 @@
         <!--<security:http-basic/>-->
 
         <!--使用FormLogin方式进行登录（认证）
-            login-page：自定义登录页面
-            login-processing-url：登录请求地址
+            login-page：指定登录页面地址
+            login-processing-url：指定登录请求提交地址
+            authentication-failure-forward-url：登录失败的转发地址，如果设置了authentication-failure-handler-ref则无效
             authentication-success-handler-ref：指定AuthenticationSuccessHandler实现类，自定义登录成功返回结果
             authentication-failure-handler-ref：指定AuthenticationFailureHandler实现类，自定义登录失败返回结果
         -->
@@ -54,23 +55,34 @@
     <security:authentication-manager>
 
         <!--
-            user-service-ref：自定义UserDetailService方式指定用户权限；这个属性不能和<user-service>>子元素共存
+            user-service-ref：自定义UserDetailService方式指定用户权限；这个属性不能和<user-service>>子元素要有一个且只能有一个
          -->
-        <!--<security:authentication-provider user-service-ref="myUserDetailService">-->
-        <security:authentication-provider>
+        <security:authentication-provider user-service-ref="myUserDetailService">
+        <!--<security:authentication-provider>-->
 
-            <!--硬编码方式指定用户权限-->
-            <security:user-service>
-                <security:user name="allen" password="123" authorities="PRODUCT_LIST,PRODUCT_ADD"/>
-                <security:user name="pwd" password="123" authorities="PRODUCT_LIST,PRODUCT_ADD,PRODUCT_DELETE,PRODUCT_UPDATE"/>
-            </security:user-service>
+            <!--
+            自定义密码匹配方法，指定加密算法，PasswordEncoder的实现类，匹配方法为matches
+            -->
+            <security:password-encoder ref="passwordEncoder" />
+
+            <!--
+            硬编码方式指定用户权限
+            如果是角色需要ROLE_xxx格式，否则intercept-url标签的sccess属性使用hasRole无效（待确定）
+            -->
+            <!--<security:user-service>-->
+                <!--<security:user name="allen" password="123" authorities="PRODUCT_LIST,PRODUCT_ADD"/>-->
+                <!--<security:user name="pwd" password="123" authorities="PRODUCT_LIST,PRODUCT_ADD,PRODUCT_DELETE,PRODUCT_UPDATE"/>-->
+            <!--</security:user-service>-->
 
         </security:authentication-provider>
     </security:authentication-manager>
 
-    <bean id="myUserDetailService" class="pwd.allen.security.MyUserDetailService"/>
+    <bean id="myUserDetailService" class="pwd.allen.security.MyUserDetailService" />
 
     <bean id="myAuthenticationSuccessHandler" class="pwd.allen.security.MyAuthenticationSuccessHandler" />
     <bean id="myAuthenticationFailureHandler" class="pwd.allen.security.MyAuthenticationFailureHandler" />
+
+    <!--哈希算法+加盐，即使密码相同加密后的结果也不会一样-->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 </beans>

@@ -29,7 +29,4 @@ public interface UserMapper {
      */
     public List<Auth> selectAuthByUserName(String userName);
 
-    public int insert(User user);
-
-    public int update(User user);
 }

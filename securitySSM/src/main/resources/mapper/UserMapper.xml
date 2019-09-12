@@ -1,52 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pwd.allen.dao.UserMapper">
-  <!--<resultMap id="BaseResultMap" type="pwd.allen.entity.User">-->
-    <!--<id column="id" jdbcType="INTEGER" property="id" />-->
-    <!--<result column="username" jdbcType="VARCHAR" property="username" />-->
-    <!--<result column="password" jdbcType="VARCHAR" property="password" />-->
-    <!--<result column="create_date" jdbcType="TIMESTAMP" property="create_date" />-->
-    <!--<result column="last_login_time" jdbcType="TIMESTAMP" property="last_login_time" />-->
-    <!--<result column="enabled" jdbcType="INTEGER" property="enabled" />-->
-    <!--<result column="non_expired" jdbcType="INTEGER" property="non_expired" />-->
-    <!--<result column="non_locked" jdbcType="INTEGER" property="non_locked" />-->
-    <!--<result column="credentials_non_expired" jdbcType="INTEGER" property="credentials_non_expired" />-->
-  <!--</resultMap>-->
-  <sql id="Base_Column_List">
-    id, username, password, create_date, last_login_time, enabled, non_expired, non_locked, 
-    credentials_non_expired
-  </sql>
   <select id="selectByUserName" parameterType="string" resultType="user">
     select * from sys_user
-    where user_name = #{userName,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
   </select>
   <select id="selectAuthByUserName" parameterType="string" resultType="auth">
     select auth.* from sys_user user
     inner join sys_user_role ur on user.id=ur.user_id
     inner join sys_role_auth ra on ur.role_id=ra.role_id
     inner join sys_auth auth on ra.auth_id=auth.id
-    where username = #{userName,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
   </select>
-  <insert id="insert" parameterType="pwd.allen.entity.User">
-    insert into sys_user (id, username, password, 
-      create_date, last_login_time, enabled, 
-      non_expired, non_locked, credentials_non_expired
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{create_date,jdbcType=TIMESTAMP}, #{last_login_time,jdbcType=TIMESTAMP}, #{enabled,jdbcType=INTEGER}, 
-      #{non_expired,jdbcType=INTEGER}, #{non_locked,jdbcType=INTEGER}, #{credentials_non_expired,jdbcType=INTEGER}
-      )
-  </insert>
-  <update id="update" parameterType="pwd.allen.entity.User">
-    update sys_user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      create_date = #{create_date,jdbcType=TIMESTAMP},
-      last_login_time = #{last_login_time,jdbcType=TIMESTAMP},
-      enabled = #{enabled,jdbcType=INTEGER},
-      non_expired = #{non_expired,jdbcType=INTEGER},
-      non_locked = #{non_locked,jdbcType=INTEGER},
-      credentials_non_expired = #{credentials_non_expired,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

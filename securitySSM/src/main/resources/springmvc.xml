@@ -12,6 +12,9 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <!--静态资源默认处理-->
+    <mvc:default-servlet-handler/>
+
     <!-- 注解方式处理器映射器和处理器适配器 -->
     <mvc:annotation-driven/>
 

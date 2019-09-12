@@ -15,20 +15,4 @@
     from sys_auth
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteById" parameterType="java.lang.Integer">
-    delete from sys_auth
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="pwd.allen.entity.Auth">
-    insert into sys_auth (id, auth_name, auth_desc
-      )
-    values (#{id,jdbcType=INTEGER}, #{authName,jdbcType=VARCHAR}, #{authDesc,jdbcType=VARCHAR}
-      )
-  </insert>
-  <update id="update" parameterType="pwd.allen.entity.Auth">
-    update sys_auth
-    set auth_name = #{authName,jdbcType=VARCHAR},
-      auth_desc = #{authDesc,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

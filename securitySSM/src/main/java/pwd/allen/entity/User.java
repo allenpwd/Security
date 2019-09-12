@@ -1,11 +1,16 @@
 package pwd.allen.entity;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Data
-public class User {
+public class User implements UserDetails {
     private Integer id;
 
     private String username;
@@ -16,12 +21,15 @@ public class User {
 
     private Date lastLoginTime;
 
-    private Boolean enabled;
+    private boolean isEnabled;
 
-    private Boolean nonExpired;
+    private boolean isAccountNonExpired;
 
-    private Boolean nonLocked;
+    private boolean isAccountNonLocked;
 
-    private Boolean credentialsNonExpired;
+    private boolean isCredentialsNonExpired;
+
+    //用户拥有的所有权限
+    private List<GrantedAuthority> authorities = new ArrayList<>();
 
 }

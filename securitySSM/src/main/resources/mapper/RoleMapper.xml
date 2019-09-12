@@ -15,20 +15,4 @@
     from sys_role
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteById" parameterType="java.lang.Integer">
-    delete from sys_role
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="pwd.allen.entity.Role">
-    insert into sys_role (id, role_name, role_desc
-      )
-    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}
-      )
-  </insert>
-  <update id="update" parameterType="pwd.allen.entity.Role">
-    update sys_role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      role_desc = #{roleDesc,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>
