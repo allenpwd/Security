@@ -48,6 +48,14 @@
 
         <!--关闭 spring security csrf 机制-->
         <security:csrf disabled="true"/>
+
+        <!--自定义spring security过滤器-->
+        <security:custom-filter ref="kaptchaRequestFilter" before="FORM_LOGIN_FILTER" />
+
+        <!--加上remember me功能
+            token-validity-seconds：有限时长，单位秒
+        -->
+        <security:remember-me token-repository-ref="jdbcTokenRepository" token-validity-seconds="3600" />
     </security:http>
 
     <!-- 认证管理器
@@ -85,5 +93,13 @@
 
     <!--哈希算法+加盐，即使密码相同加密后的结果也不会一样-->
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <bean id="kaptchaRequestFilter" class="pwd.allen.security.KaptchaRequestFilter" />
+
+    <bean id="jdbcTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <property name="dataSource" ref="dataSource" />
+        <!--是否让security创建persistent_logins表，如果已经有这张表则不能设为true-->
+        <!--<property name="createTableOnStartup" value="true" />-->
+    </bean>
 
 </beans>
