@@ -58,6 +58,8 @@
         <security:remember-me token-repository-ref="jdbcTokenRepository" token-validity-seconds="3600" />
     </security:http>
 
+
+
     <!-- 认证管理器
         1）认证信息提供方式（账户名、密码，当前用户权限）
      -->
