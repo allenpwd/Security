@@ -15,7 +15,7 @@ import java.util.List;
  * @author lenovo
  * @create 2019-09-12 16:18
  **/
-//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class UserMapperTest {
 

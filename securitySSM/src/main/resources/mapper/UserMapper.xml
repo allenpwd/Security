@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="pwd.allen.dao.UserMapper">
-  <select id="selectByUserName" parameterType="string" resultType="user">
+  <resultMap id="BaseResultMap" type="pwd.allen.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="username" />
+    <result column="role_desc" jdbcType="VARCHAR" property="createDate" />
+    <result column="non_expired" property="isAccountNonExpired" />
+    <result column="non_locked" property="isAccountNonLocked" />
+    <result column="credentials_non_expired" property="isCredentialsNonExpired" />
+  </resultMap>
+  <select id="selectByUserName" parameterType="string" resultMap="BaseResultMap">
     select * from sys_user
     where username = #{username,jdbcType=VARCHAR}
   </select>

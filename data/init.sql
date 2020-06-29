@@ -20,7 +20,7 @@ drop table if exists sys_user_role;
 create table sys_auth
 (
    id                   int(10) not null comment '权限ID',
-   auth_name              varchar(50) comment '权限名',
+   auth_name            varchar(50) comment '权限名',
    auth_desc            varchar(50) comment '权限描述符',
    primary key (id)
 );

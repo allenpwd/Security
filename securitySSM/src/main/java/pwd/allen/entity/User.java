@@ -29,7 +29,9 @@ public class User implements UserDetails {
 
     private boolean isCredentialsNonExpired;
 
-    //用户拥有的所有权限
+    /**
+     * 用户拥有的所有权限
+     */
     private List<GrantedAuthority> authorities = new ArrayList<>();
 
 }
