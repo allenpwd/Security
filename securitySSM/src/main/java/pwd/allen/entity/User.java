@@ -21,13 +21,13 @@ public class User implements UserDetails {
 
     private Date lastLoginTime;
 
-    private boolean isEnabled;
+    private boolean enabled;
 
-    private boolean isAccountNonExpired;
+    private boolean accountNonExpired;
 
-    private boolean isAccountNonLocked;
+    private boolean accountNonLocked;
 
-    private boolean isCredentialsNonExpired;
+    private boolean credentialsNonExpired;
 
     /**
      * 用户拥有的所有权限

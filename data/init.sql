@@ -4,15 +4,12 @@
 /*==============================================================*/
 
 
-drop table if exists sys_auth;
-
-drop table if exists sys_role;
-
 drop table if exists sys_role_auth;
-
+drop table if exists sys_user_role;
+drop table if exists sys_auth;
+drop table if exists sys_role;
 drop table if exists sys_user;
 
-drop table if exists sys_user_role;
 
 /*==============================================================*/
 /* Table: sys_auth                                              */
@@ -51,13 +48,13 @@ create table sys_role_auth
 create table sys_user
 (
    id                   int(10) not null comment '用户ID',
-   user_name             varchar(50) comment '用户名',
+   username             varchar(50) comment '用户名',
    password             varchar(50) comment '密码',
    create_date          datetime comment '创建日期',
    last_login_time      datetime comment '最后登录时间',
    enabled              int(5) comment '是否可用',
-   non_expired          int(5) comment '是否没过期',
-   non_locked           int(5) comment '是否没锁定',
+   account_non_expired          int(5) comment '是否没过期',
+   account_non_locked           int(5) comment '是否没锁定',
    credentials_non_expired int(5) comment '证书是否没过期',
    primary key (id)
 );
@@ -71,7 +68,7 @@ create table sys_user_role
    role_id              int(10) comment '角色ID'
 );
 
-alter table sys_role_auth add constraint FK_Reference_3 foreign key (auth_d)
+alter table sys_role_auth add constraint FK_Reference_3 foreign key (auth_id)
       references sys_auth (id) on delete restrict on update restrict;
 
 alter table sys_role_auth add constraint FK_Reference_4 foreign key (role_id)
