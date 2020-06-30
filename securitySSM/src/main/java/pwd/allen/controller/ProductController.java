@@ -29,7 +29,7 @@ public class ProductController {
 
         //获取用户登录信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = authentication.getPrincipal();
         if (principal != null && principal instanceof UserDetails) {
             String username = UserDetails.class.cast(principal).getUsername();
 //            request.setAttribute("username", username);

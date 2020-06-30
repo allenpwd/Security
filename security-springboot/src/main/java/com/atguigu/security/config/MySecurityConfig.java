@@ -2,6 +2,7 @@ package com.atguigu.security.config;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -21,8 +22,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //super.configure(http);
-        //定制请求的授权规则
+//        super.configure(http);
+        // 定制请求的授权规则
         http.authorizeRequests()
                 .antMatchers("/","/userlogin").permitAll()
                 .antMatchers("/level1/**").hasRole("VIP1")
@@ -72,5 +73,15 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
         //自定义UserDetailService方式指定用户权限
 //        auth.authenticationProvider(new MyUserDetailService());
+    }
+
+    /**
+     * 配置静态资源的处理方式，可使用ant匹配规则
+     * @param web
+     * @throws Exception
+     */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
     }
 }

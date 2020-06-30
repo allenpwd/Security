@@ -66,6 +66,6 @@ public class MainController {
             out.close();
         }
 
-        System.out.println("Session 验证码是aasdfa：" + request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY));
+        System.out.println("Session 验证码是：" + request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY));
     }
 }

@@ -36,7 +36,9 @@ public class MyUserDetailService implements UserDetailsService {
 
         //根据用户名查询用户信息
         User user = userMapper.selectByUserName(s);
-        if (user == null) throw new RuntimeException("帐号不存在");
+        if (user == null) {
+            throw new RuntimeException("帐号不存在");
+        }
 
         //根据用户名查询当前用户的所有权限
         List<Auth> auths = userMapper.selectAuthByUserName(s);

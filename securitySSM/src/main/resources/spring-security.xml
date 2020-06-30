@@ -32,10 +32,13 @@
         <!--自定义权限不足的处理-->
         <security:access-denied-handler error-page="/error"/>
 
-        <!-- 使用HttpBasic方式进行登录（认证） -->
+        <!-- 使用HttpBasic方式进行登录（认证）
+        过滤器：BasicAuthenticationFilter
+         -->
         <!--<security:http-basic/>-->
 
         <!--使用FormLogin方式进行登录（认证）
+        过滤器：UsernamePasswordAuthenticationFilter
             login-page：指定登录页面地址
             login-processing-url：指定登录请求提交地址
             authentication-failure-forward-url：登录失败的转发地址，如果设置了authentication-failure-handler-ref则无效
@@ -46,13 +49,18 @@
               default-target-url="/product/index" authentication-failure-handler-ref="myAuthenticationFailureHandler"
               authentication-success-handler-ref="myAuthenticationSuccessHandler"/>
 
-        <!--关闭 spring security csrf 机制-->
+        <!--关闭 spring security csrf 机制
+        过滤器：CsrfFilter
+        -->
         <security:csrf disabled="true"/>
 
         <!--自定义spring security过滤器-->
+        <!--验证码校验，注释掉的话登录不校验验证码-->
         <security:custom-filter ref="kaptchaRequestFilter" before="FORM_LOGIN_FILTER" />
 
         <!--加上remember me功能
+        过滤器：RememberMeAuthenticationFilter
+        当用户没有登录而直接访问资源时, 从cookie里找出用户的信息, 如果Spring Security能够识别出用户提供的remember me cookie, 用户将不必填写用户名和密码, 而是直接登录进入系统
             token-validity-seconds：有限时长，单位秒
         -->
         <security:remember-me token-repository-ref="jdbcTokenRepository" token-validity-seconds="3600" />
@@ -66,7 +74,7 @@
     <security:authentication-manager>
 
         <!--
-            user-service-ref：自定义UserDetailService方式指定用户权限；这个属性不能和<user-service>>子元素要有一个且只能有一个
+            user-service-ref：自定义UserDetailService方式指定用户权限（会启用DaoAuthenticationProvider这个认证器）；这个属性和<user-service>子元素要有一个且只能有一个
          -->
         <security:authentication-provider user-service-ref="myUserDetailService">
         <!--<security:authentication-provider>-->

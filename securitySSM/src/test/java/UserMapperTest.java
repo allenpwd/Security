@@ -31,13 +31,4 @@ public class UserMapperTest {
         System.out.println(user);
     }
 
-    @Test
-    public void testEncode() {
-        String password = "123";
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        //哈希算法+加盐
-        String encodedPassword = passwordEncoder.encode(password);
-        System.out.println(encodedPassword);
-        System.out.println(passwordEncoder.matches(password, encodedPassword));
-    }
 }

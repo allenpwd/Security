@@ -49,7 +49,7 @@ create table sys_user
 (
    id                   int(10) not null comment '用户ID',
    username             varchar(50) comment '用户名',
-   password             varchar(50) comment '密码',
+   password             varchar(60) comment '密码',
    create_date          datetime comment '创建日期',
    last_login_time      datetime comment '最后登录时间',
    enabled              int(5) comment '是否可用',
