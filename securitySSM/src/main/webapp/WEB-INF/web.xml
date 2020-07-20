@@ -18,7 +18,7 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
-    <!-- spring security过滤连 -->
+    <!-- 用于集成spring security过滤链代理（FilterChainProxy）,默认从Root applicationcontext中找beanName为filterName的 -->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
