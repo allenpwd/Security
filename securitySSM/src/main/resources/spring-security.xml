@@ -56,12 +56,13 @@
 
         <!--自定义spring security过滤器-->
         <!--验证码校验，注释掉的话登录不校验验证码-->
-        <security:custom-filter ref="kaptchaRequestFilter" before="FORM_LOGIN_FILTER" />
+        <!--<security:custom-filter ref="kaptchaRequestFilter" before="FORM_LOGIN_FILTER" />-->
 
         <!--加上remember me功能
         过滤器：RememberMeAuthenticationFilter
         当用户没有登录而直接访问资源时, 从cookie里找出用户的信息, 如果Spring Security能够识别出用户提供的remember me cookie, 用户将不必填写用户名和密码, 而是直接登录进入系统
             token-validity-seconds：有限时长，单位秒
+            token-repository-ref：加了的话，提供对token持久化的支持
         -->
         <security:remember-me token-repository-ref="jdbcTokenRepository" token-validity-seconds="3600" />
     </security:http>
@@ -77,8 +78,6 @@
             user-service-ref：自定义UserDetailService方式指定用户权限（会启用DaoAuthenticationProvider这个认证器）；这个属性和<user-service>子元素要有一个且只能有一个
          -->
         <security:authentication-provider user-service-ref="myUserDetailService">
-        <!--<security:authentication-provider>-->
-
             <!--
             自定义密码匹配方法，指定加密算法，PasswordEncoder的实现类，匹配方法为matches
             -->

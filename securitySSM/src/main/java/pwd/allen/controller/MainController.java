@@ -44,19 +44,24 @@ public class MainController {
 
     @RequestMapping("getCaptcha")
     public void getCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setDateHeader("Expires", 0);// 禁止server端缓存
+        // 禁止server端缓存
+        response.setDateHeader("Expires", 0);
         // 设置标准的 HTTP/1.1 no-cache headers.
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
         // 设置IE扩展 HTTP/1.1 no-cache headers (use addHeader).
         response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-        response.setHeader("Pragma", "no-cache");// 设置标准 HTTP/1.0 不缓存图片
-        response.setContentType("image/jpeg");// 返回一个 jpeg 图片，默认是text/html(输出文档的MIMI类型)
-        String capText = captchaProducer.createText();// 为图片创建文本
+        // 设置标准 HTTP/1.0 不缓存图片
+        response.setHeader("Pragma", "no-cache");
+        // 返回一个 jpeg 图片，默认是text/html(输出文档的MIMI类型)
+        response.setContentType("image/jpeg");
+        // 为图片创建文本
+        String capText = captchaProducer.createText();
 
         // 将文本保存在session中。这里就使用包中的静态变量吧
         request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
 
-        BufferedImage bi = captchaProducer.createImage(capText); // 创建带有文本的图片
+        // 创建带有文本的图片
+        BufferedImage bi = captchaProducer.createImage(capText);
         ServletOutputStream out = response.getOutputStream();
         // 图片数据输出
         ImageIO.write(bi, "jpg", out);

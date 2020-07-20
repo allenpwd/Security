@@ -29,7 +29,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/level1/**").hasRole("VIP1")
                 .antMatchers("/level2/**").hasRole("VIP2")
                 .antMatchers("/level3/**").hasRole("VIP3")
-                .antMatchers("/**").fullyAuthenticated();   //拦截所有请求的要放在最后，因为按照顺序判断的
+                // 拦截所有请求的要放在最后，因为按照顺序判断的
+                .antMatchers("/**").fullyAuthenticated();
 
         //开启自动配置的表单登陆功能，效果，如果没有登陆，没有权限就会来到登陆页面
         http.formLogin().usernameParameter("user").passwordParameter("pwd")
